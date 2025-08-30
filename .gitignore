@@ -1,16 +1,34 @@
-# Ignore Node modules
-backend/node_modules
-frontend/node_modules
-admin/node_modules
+# 🔹 Global node_modules
+node_modules/
 
-# Environment files
-backend/.env
+# 🔹 Frontend build & environment
+frontend/node_modules/
 frontend/.env
+frontend/dist/
+
+# 🔹 Admin frontend build & environment
+admin/node_modules/
 admin/.env
+admin/dist/
 
-# Build folders
-frontend/dist
-admin/dist
+# 🔹 Admin backend node_modules & env
+admin/backend/node_modules/
+admin/backend/.env
 
-# Logs
+# 🔹 Main backend node_modules & env
+backend/node_modules/
+backend/.env
+
+# 🔹 Root environment & build
+.env
+dist/
+
+# 🔹 Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 🔹 System files
+.DS_Store
+Thumbs.db
