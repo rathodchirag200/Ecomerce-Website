@@ -16,7 +16,7 @@ const port = process.env.PORT || 3000;
 
 // ✅ Middleware
 app.use(cors({
-  origin: ["https://trendzy-nine.vercel.app","http://localhost:5174",],
+  origin: ["https://trendzy-nine.vercel.app","https://adminpanel-mocha-seven.vercel.app/",],
   credentials: true,
 }));
 app.use(express.json());
