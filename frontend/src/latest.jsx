@@ -13,7 +13,7 @@ export const Latest = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/product/list");
+      const res = await axios.get("https://ecomerce-website-ezue.onrender.com/product/list");
       const allProducts = res.data.productdata;
       setLatest(allProducts);
     } catch (err) {
@@ -43,7 +43,7 @@ export const Latest = () => {
         >
           <div className="overflow-hidden">
             <img
-              src={`http://localhost:3000${item.images[0]}`}
+              src={`https://ecomerce-website-ezue.onrender.com${item.images[0]}`}
               alt={item.name}
               className="w-full h-[200px] object-contain transition-transform duration-300 ease-in-out hover:scale-105"
             />

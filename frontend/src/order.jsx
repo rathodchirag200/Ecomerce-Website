@@ -13,7 +13,7 @@ export const Order = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/orders/user/${userId}`);
+      const res = await axios.get(`https://ecomerce-website-ezue.onrender.com/orders/user/${userId}`);
       setOrders(res.data.orders || []);
       setLoading(false);
     } catch (error) {
@@ -40,7 +40,7 @@ export const Order = () => {
               {/* Left: Product Image + Details */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full sm:w-auto">
                 <img
-                  src={`http://localhost:3000${product.productId.images[0]}`}
+                  src={`https://ecomerce-website-ezue.onrender.com${product.productId.images[0]}`}
                   alt={product.productId.name}
                   className="w-24 h-24 sm:w-28 sm:h-28 object-contain rounded self-center sm:self-start"
                 />

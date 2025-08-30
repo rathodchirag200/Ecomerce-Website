@@ -74,7 +74,7 @@ export const Admin = () => {
       formData.append("images", file);
 
       const res = await axios.post(
-        "http://localhost:3000/product/add",
+        "https://ecomerce-website-ezue.onrender.com/product/add",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

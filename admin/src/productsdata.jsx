@@ -23,7 +23,7 @@ export const Productsdata = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/product/list");
+      const res = await axios.get("https://ecomerce-website-ezue.onrender.com/product/list");
       setProducts(res.data.productdata);
     } catch (err) {
       console.error("Error fetching product data:", err);
@@ -45,7 +45,7 @@ export const Productsdata = () => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
 
     try {
-      await axios.delete(`http://localhost:3000/product/delete/${id}`);
+      await axios.delete(`https://ecomerce-website-ezue.onrender.com/product/delete/${id}`);
       alert("Product deleted successfully");
       fetchProducts();
     } catch (error) {
@@ -112,7 +112,7 @@ export const Productsdata = () => {
       }
 
       await axios.put(
-        `http://localhost:3000/product/update/${editingProduct._id}`,
+        `https://ecomerce-website-ezue.onrender.com/product/update/${editingProduct._id}`,
         data,
         {
           headers: {
@@ -223,7 +223,7 @@ export const Productsdata = () => {
                   <tr key={item._id} className="border-t hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <img
-                        src={`http://localhost:3000${item.images[0]}`}
+                        src={`https://ecomerce-website-ezue.onrender.com${item.images[0]}`}
                         alt={item.name}
                         className="w-24 h-24 object-contain rounded"
                       />

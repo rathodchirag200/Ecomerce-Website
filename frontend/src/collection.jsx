@@ -18,7 +18,7 @@ export const Collection = ({ searchQuery }) => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/product/list");
+      const res = await axios.get("https://ecomerce-website-ezue.onrender.com/product/list");
       setAllProducts(res.data.productdata);
       setFilteredProducts(res.data.productdata);
     } catch (error) {
@@ -143,7 +143,7 @@ export const Collection = ({ searchQuery }) => {
               >
                 <div className="overflow-hidden  shadow-sm">
                   <img
-                    src={`http://localhost:3000${item.images[0]}`}
+                    src={`https://ecomerce-website-ezue.onrender.com${item.images[0]}`}
                     alt={item.name}
                     className="w-full h-auto object-cover transition-transform duration-300 ease-in-out hover:scale-105"
                   />

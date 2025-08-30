@@ -13,7 +13,7 @@ export const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/orders/all");
+      const res = await axios.get("https://ecomerce-website-ezue.onrender.com/orders/all");
       setOrders(res.data.orders || []);
     } catch (err) {
       console.error("Error fetching orders:", err);
@@ -24,7 +24,7 @@ export const Orders = () => {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      await axios.put(`http://localhost:3000/orders/update/${orderId}`, {
+      await axios.put(`https://ecomerce-website-ezue.onrender.com/orders/update/${orderId}`, {
         orderStatus: newStatus,
       });
       fetchOrders();

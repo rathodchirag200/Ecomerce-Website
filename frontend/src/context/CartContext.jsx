@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const userId = localStorage.getItem("userId");
-  const API_URL = "http://localhost:3000/api";
+  const API_URL = "https://ecomerce-website-ezue.onrender.com/api";
 
   // ✅ Fetch cart data from backend
   const fetchCart = useCallback(async () => {

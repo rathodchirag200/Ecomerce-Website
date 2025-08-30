@@ -18,7 +18,7 @@ export const Cart = ({ onCartUpdate }) => {
   // ✅ Fetch Cart Items
   const fetchCart = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/cart/${userId}`);
+      const res = await axios.get(`https://ecomerce-website-ezue.onrender.com/api/cart/${userId}`);
       setCart(res.data.cart);
       if (onCartUpdate) onCartUpdate(res.data.cart.length);
     } catch (error) {
@@ -38,7 +38,7 @@ export const Cart = ({ onCartUpdate }) => {
   const removeFromCart = async (productId, size) => {
     try {
       await axios.delete(
-        `http://localhost:3000/api/remove/${userId}/${productId}/${size}`
+        `https://ecomerce-website-ezue.onrender.com/api/remove/${userId}/${productId}/${size}`
       );
 
       const updatedCart = cart.filter(
@@ -59,7 +59,7 @@ export const Cart = ({ onCartUpdate }) => {
     if (newQuantity < 1) return;
 
     try {
-      await axios.put(`http://localhost:3000/api/cart/update`, {
+      await axios.put(`https://ecomerce-website-ezue.onrender.com/api/cart/update`, {
         userId,
         productId,
         size,
@@ -122,7 +122,7 @@ export const Cart = ({ onCartUpdate }) => {
                 <div className="flex items-center gap-5">
                   <div className="w-24 h-24 rounded-lg overflow-hidden shadow-sm">
                     <img
-                      src={`http://localhost:3000${item.productId.images[0]}`}
+                      src={`https://ecomerce-website-ezue.onrender.com${item.productId.images[0]}`}
                       alt={item.productId.name}
                       className="object-contain w-full h-full"
                     />

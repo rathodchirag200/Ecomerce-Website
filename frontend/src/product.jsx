@@ -22,7 +22,7 @@ export const Product = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/product/list");
+      const res = await axios.get("https://ecomerce-website-ezue.onrender.com/product/list");
       setLatest(res.data.productdata);
       setLoading(false);
     } catch (err) {
@@ -37,7 +37,7 @@ export const Product = () => {
   // ✅ Update main image when product changes
   useEffect(() => {
     if (product && product.images?.length > 0) {
-      setMainImage(`http://localhost:3000${product.images[0]}`);
+      setMainImage(`https://ecomerce-website-ezue.onrender.com${product.images[0]}`);
     }
   }, [product]);
 

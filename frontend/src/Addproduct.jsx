@@ -54,7 +54,7 @@ const AddProduct = () => {
       data.append("bestseller", formData.bestseller.toString());
       data.append("images", image);
 
-      const res = await axios.post("http://localhost:3000/product/add", data, {
+      const res = await axios.post("https://ecomerce-website-ezue.onrender.com/product/add", data, {
         headers: { "Content-Type": "multipart/form-data" },
         timeout: 20000,
       });
