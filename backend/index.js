@@ -33,10 +33,7 @@ app.use("/orders", orderrouter);
 
 // ✅ Database Connection (SINGLE DB)
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ Connected to MongoDB Atlas"))
   .catch((err) => console.error("❌ DB Connection Error:", err));
 

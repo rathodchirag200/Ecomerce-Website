@@ -92,7 +92,7 @@ export const Product = () => {
           </div>
 
           {/* Price */}
-          <p className="text-3xl font-bold mt-3">₹{product.price}</p>
+          <p className="text-3xl font-bold mt-3">${product.price}</p>
 
           {/* Description */}
           <p className="mt-4 text-gray-700">{product.description}</p>
