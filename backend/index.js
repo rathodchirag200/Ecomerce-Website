@@ -40,6 +40,11 @@ mongoose
   .then(() => console.log("✅ Connected to MongoDB Atlas"))
   .catch((err) => console.error("❌ DB Connection Error:", err));
 
+  app.get("/", (req, res) => {
+  res.send("🚀 Backend is live!");
+});
+
+
 // ✅ Start Server
 app.listen(port, () => {
   console.log(`🚀 Server is running on http://localhost:${port}`);

@@ -20,11 +20,7 @@ export const Cart = ({ onCartUpdate }) => {
     try {
       const res = await axios.get(`http://localhost:3000/api/cart/${userId}`);
       setCart(res.data.cart);
-
-      // ✅ Update Navbar Counter
-      if (onCartUpdate) {
-        onCartUpdate(res.data.cart.length);
-      }
+      if (onCartUpdate) onCartUpdate(res.data.cart.length);
     } catch (error) {
       console.error("Error fetching cart:", error);
       toast.error("Failed to fetch cart!");
@@ -33,12 +29,12 @@ export const Cart = ({ onCartUpdate }) => {
     }
   };
 
-  // ✅ Navigate to Place Order Page
+  // ✅ Navigate to Place Order
   const handleplaceorder = () => {
     navigate("/placeorder");
   };
 
-  // ✅ Remove Product From Cart Instantly
+  // ✅ Remove Product
   const removeFromCart = async (productId, size) => {
     try {
       await axios.delete(
@@ -50,11 +46,7 @@ export const Cart = ({ onCartUpdate }) => {
       );
 
       setCart(updatedCart);
-
-      if (onCartUpdate) {
-        onCartUpdate(updatedCart.length);
-      }
-
+      if (onCartUpdate) onCartUpdate(updatedCart.length);
       toast.success("Item removed from cart!");
     } catch (error) {
       console.error("Error removing product:", error);
@@ -62,28 +54,25 @@ export const Cart = ({ onCartUpdate }) => {
     }
   };
 
-  // ✅ Update Quantity (+ / -)
-  const updateQuantity = async (productId, size, newQty) => {
-    if (newQty < 1) return; // Prevent going below 1
+  // ✅ Update Quantity
+  const updateQuantity = async (productId, size, newQuantity) => {
+    if (newQuantity < 1) return;
 
     try {
-      // Update in DB
-      await axios.put("http://localhost:3000/api/cart/update", {
+      await axios.put(`http://localhost:3000/api/cart/update`, {
         userId,
         productId,
         size,
-        quantity: newQty,
+        quantity: newQuantity,
       });
 
-      // Update UI instantly
       const updatedCart = cart.map((item) =>
         item.productId._id === productId && item.size === size
-          ? { ...item, quantity: newQty }
+          ? { ...item, quantity: newQuantity }
           : item
       );
-
       setCart(updatedCart);
-      toast.success("Cart updated!");
+      toast.success("Quantity updated!");
     } catch (error) {
       console.error("Error updating quantity:", error);
       toast.error("Failed to update quantity!");
@@ -96,7 +85,6 @@ export const Cart = ({ onCartUpdate }) => {
     0
   );
 
-  // ✅ Show loading spinner while fetching cart
   if (loading)
     return (
       <p className="text-center text-lg font-medium mt-10">Loading cart...</p>
@@ -123,94 +111,70 @@ export const Cart = ({ onCartUpdate }) => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* 🛒 Cart Products */}
-          <div className="md:col-span-2">
-            <div className="space-y-6">
-              {cart.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition"
-                >
-                  {/* Product Image & Info */}
-                  <div className="flex items-center gap-5">
-                    <div className="w-24 h-24 rounded-lg overflow-hidden shadow-sm">
-                      <img
-                        src={`http://localhost:3000${item.productId.images[0]}`}
-                        alt={item.productId.name}
-                        className="object-contain w-full h-full"
-                      />
-                    </div>
-                    <div>
-                      <h2 className="text-lg font-semibold text-gray-800">
-                        {item.productId.name}
-                      </h2>
-                      <p className="text-gray-500 text-sm">
-                        ${item.productId.price.toFixed(2)}
-                      </p>
-                      <p className="text-gray-500 text-sm">Size: {item.size}</p>
-                    </div>
-                  </div>
-
-                  {/* Quantity + Delete */}
-                  <div className="flex items-center gap-3">
-                    {/* ➖ Decrease */}
-                    <button
-                      onClick={() =>
-                        updateQuantity(
-                          item.productId._id,
-                          item.size,
-                          item.quantity - 1
-                        )
-                      }
-                      disabled={item.quantity === 1}
-                      className={`px-2 py-1 rounded ${
-                        item.quantity === 1
-                          ? "bg-gray-300 cursor-not-allowed"
-                          : "bg-gray-200 hover:bg-gray-300"
-                      } transition`}
-                    >
-                      -
-                    </button>
-
-                    {/* Quantity Display */}
-                    <input
-                      type="number"
-                      value={item.quantity}
-                      readOnly
-                      className="w-14 border border-gray-300 rounded-lg text-center py-1"
+          {/* Cart Products */}
+          <div className="md:col-span-2 space-y-6">
+            {cart.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition"
+              >
+                {/* Product Info */}
+                <div className="flex items-center gap-5">
+                  <div className="w-24 h-24 rounded-lg overflow-hidden shadow-sm">
+                    <img
+                      src={`http://localhost:3000${item.productId.images[0]}`}
+                      alt={item.productId.name}
+                      className="object-contain w-full h-full"
                     />
-
-                    {/* ➕ Increase */}
-                    <button
-                      onClick={() =>
-                        updateQuantity(
-                          item.productId._id,
-                          item.size,
-                          item.quantity + 1
-                        )
-                      }
-                      className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition"
-                    >
-                      +
-                    </button>
-
-                    {/* Delete */}
-                    <button
-                      onClick={() =>
-                        removeFromCart(item.productId._id, item.size)
-                      }
-                      className="text-red-500 hover:text-red-700 text-xl transition"
-                      title="Remove Item"
-                    >
-                      🗑
-                    </button>
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-semibold text-gray-800">
+                      {item.productId.name}
+                    </h2>
+                    <p className="text-gray-500 text-sm">
+                      ${item.productId.price.toFixed(2)}
+                    </p>
+                    <p className="text-gray-500 text-sm">Size: {item.size}</p>
                   </div>
                 </div>
-              ))}
-            </div>
+
+                {/* Quantity & Remove */}
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() =>
+                      updateQuantity(item.productId._id, item.size, item.quantity - 1)
+                    }
+                    className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    value={item.quantity}
+                    readOnly
+                    className="w-14 border border-gray-300 rounded-lg text-center py-1 focus:ring-1 focus:ring-black"
+                  />
+                  <button
+                    onClick={() =>
+                      updateQuantity(item.productId._id, item.size, item.quantity + 1)
+                    }
+                    className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={() => removeFromCart(item.productId._id, item.size)}
+                    className="text-red-500 hover:text-red-700 text-xl transition"
+                    title="Remove Item"
+                  >
+                    🗑
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* 📦 Cart Summary */}
+          {/* Cart Summary */}
           <div className="border border-gray-200 p-6 rounded-lg shadow-lg bg-gray-50">
             <h3 className="text-xl font-semibold mb-5 text-gray-800">
               Cart Totals
