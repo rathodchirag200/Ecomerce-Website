@@ -30,7 +30,7 @@ export const Adminlogin = () => {
 
     try {
       // API request for admin login
-      const res = await axios.post("http://localhost:5000/api/admin/login", {
+      const res = await axios.post("https://ecomerce-website-admin.onrender.com/api/admin/login", {
         email,
         password,
       });
