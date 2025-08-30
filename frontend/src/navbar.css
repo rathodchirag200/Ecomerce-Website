@@ -1,0 +1,14 @@
+
+.active li {
+  background-color: black;
+  color: white !important;
+  padding: 4px 12px;
+  border-radius: 6px;
+  transition: 0.3s ease-in-out;
+}
+
+/* Hover effect */
+ul li:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
