@@ -10,6 +10,7 @@ export const Collection = ({ searchQuery }) => {
   const [subcategory, setSubcategory] = useState([]);
   const [sortOption, setSortOption] = useState("Relevant");
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // Fetch products from backend
   useEffect(() => {
@@ -18,7 +19,7 @@ export const Collection = ({ searchQuery }) => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("https://ecomerce-website-ezue.onrender.com/product/list");
+      const res = await axios.get(`${API_URL}/product/list`);
       setAllProducts(res.data.productdata);
       setFilteredProducts(res.data.productdata);
     } catch (error) {
@@ -143,7 +144,7 @@ export const Collection = ({ searchQuery }) => {
               >
                 <div className="overflow-hidden  shadow-sm">
                   <img
-                    src={`https://ecomerce-website-ezue.onrender.com${item.images[0]}`}
+                    src={`${API_URL}${item.images[0]}`}
                     alt={item.name}
                     className="w-full h-auto object-cover transition-transform duration-300 ease-in-out hover:scale-105"
                   />

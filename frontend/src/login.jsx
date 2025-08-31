@@ -9,6 +9,7 @@ export const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+   const API_URL = import.meta.env.VITE_API_URL;
 
   // Handle input change
   const handlechange = (e) => {
@@ -23,7 +24,7 @@ export const Login = () => {
   setLoading(true);
 
   try {
-    const res = await fetch("https://ecomerce-website-ezue.onrender.com/api/login", {
+    const res = await fetch(`${API_URL}/api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

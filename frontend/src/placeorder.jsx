@@ -10,6 +10,7 @@ export const PlaceOrder = () => {
   const [subtotal, setSubtotal] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [processing, setProcessing] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const [inputValue, setInputValue] = useState({
     firstName: "",
@@ -34,7 +35,7 @@ export const PlaceOrder = () => {
 
   const fetchCart = async () => {
     try {
-      const res = await axios.get(`https://ecomerce-website-ezue.onrender.com/api/cart/${userId}`);
+      const res = await axios.get(`${API_URL}/api/cart/${userId}`);
       const cartData = Array.isArray(res.data.cart) ? res.data.cart : [];
       setCart(cartData);
 
@@ -87,7 +88,7 @@ export const PlaceOrder = () => {
       phone: inputValue.phone,
     };
 
-    await axios.post("https://ecomerce-website-ezue.onrender.com/orders/create", {
+    await axios.post(`${API_URL}/orders/create`, {
       userId,
       products,
       shippingAddress,
@@ -98,7 +99,7 @@ export const PlaceOrder = () => {
     toast.success("Order placed successfully!");
 
     // ✅ Now clear cart AFTER successful order
-    await axios.delete(`https://ecomerce-website-ezue.onrender.com/api/clear/${userId}`);
+    await axios.delete(`${API_URL}/api/clear/${userId}`);
     localStorage.removeItem("cart");
     setCart([]);
 

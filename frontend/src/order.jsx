@@ -4,6 +4,7 @@ import axios from "axios";
 export const Order = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+   const API_URL = import.meta.env.VITE_API_URL;
 
   const userId = localStorage.getItem("userId"); // Logged-in user
 
@@ -13,7 +14,7 @@ export const Order = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(`https://ecomerce-website-ezue.onrender.com/orders/user/${userId}`);
+      const res = await axios.get(`${API_URL}/orders/user/${userId}`);
       setOrders(res.data.orders || []);
       setLoading(false);
     } catch (error) {
@@ -40,7 +41,7 @@ export const Order = () => {
               {/* Left: Product Image + Details */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full sm:w-auto">
                 <img
-                  src={`https://ecomerce-website-ezue.onrender.com${product.productId.images[0]}`}
+                  src={`${API_URL}${product.productId.images[0]}`}
                   alt={product.productId.name}
                   className="w-24 h-24 sm:w-28 sm:h-28 object-contain rounded self-center sm:self-start"
                 />

@@ -7,7 +7,8 @@ export const Productsdata = () => {
   const [activeMenu, setActiveMenu] = useState("list");
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
-  const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar toggle state
+  const [sidebarOpen, setSidebarOpen] = useState(false); 
+  const API_URL = import.meta.env.VITE_API_URL;
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -23,7 +24,7 @@ export const Productsdata = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("https://ecomerce-website-ezue.onrender.com/product/list");
+      const res = await axios.get(`${API_URL}/product/list`);
       setProducts(res.data.productdata);
     } catch (err) {
       console.error("Error fetching product data:", err);
@@ -45,7 +46,7 @@ export const Productsdata = () => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
 
     try {
-      await axios.delete(`https://ecomerce-website-ezue.onrender.com/product/delete/${id}`);
+      await axios.delete(`${API_URL}/product/delete/${id}`);
       alert("Product deleted successfully");
       fetchProducts();
     } catch (error) {
@@ -112,7 +113,7 @@ export const Productsdata = () => {
       }
 
       await axios.put(
-        `https://ecomerce-website-ezue.onrender.com/product/update/${editingProduct._id}`,
+        `${API_URL}product/update/${editingProduct._id}`,
         data,
         {
           headers: {

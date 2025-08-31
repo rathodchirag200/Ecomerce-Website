@@ -10,10 +10,11 @@ export const Orders = () => {
   const [activeMenu, setActiveMenu] = useState("orders");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // ✅ Sidebar toggle
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("https://ecomerce-website-ezue.onrender.com/orders/all");
+      const res = await axios.get(`${API_URL}/orders/all`);
       setOrders(res.data.orders || []);
     } catch (err) {
       console.error("Error fetching orders:", err);
@@ -24,7 +25,7 @@ export const Orders = () => {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      await axios.put(`https://ecomerce-website-ezue.onrender.com/orders/update/${orderId}`, {
+      await axios.put(`${API_URL}/orders/update/${orderId}`, {
         orderStatus: newStatus,
       });
       fetchOrders();

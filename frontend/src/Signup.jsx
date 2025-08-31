@@ -11,6 +11,7 @@ export const Signup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+   const API_URL = import.meta.env.VITE_API_URL;
 
   // Handle input change
   const handlechange = (e) => {
@@ -25,7 +26,7 @@ export const Signup = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("https://ecomerce-website-ezue.onrender.com/api/register", {
+      const res = await fetch(`${API_URL}/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(inputvalue),

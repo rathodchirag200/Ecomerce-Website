@@ -8,9 +8,10 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartData, setCartData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const API_URL2 = import.meta.env.VITE_API_URL;
 
   const userId = localStorage.getItem("userId");
-  const API_URL = "https://ecomerce-website-ezue.onrender.com/api";
+  const API_URL = `${API_URL2}/api`;
 
   // ✅ Fetch cart data from backend
   const fetchCart = useCallback(async () => {

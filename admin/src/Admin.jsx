@@ -16,11 +16,12 @@ export const Admin = () => {
   const [price, setPrice] = useState("");
   const [sizes, setSizes] = useState([]);
   const [isBestseller, setIsBestseller] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // ✅ Sidebar toggle state
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL; 
 
   const navigate = useNavigate();
 
-  // ✅ Redirect to login if admin is not logged in
+
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
     if (!token) {
@@ -28,7 +29,7 @@ export const Admin = () => {
     }
   }, [navigate]);
 
-  // ✅ Logout handler
+ 
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
     toast.success("Logged out successfully!");
@@ -37,7 +38,6 @@ export const Admin = () => {
     }, 1000);
   };
 
-  // Image preview
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -46,7 +46,7 @@ export const Admin = () => {
     }
   };
 
-  // Toggle size
+
   const handleSizeToggle = (size) => {
     setSizes((prev) =>
       prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]
@@ -74,7 +74,7 @@ export const Admin = () => {
       formData.append("images", file);
 
       const res = await axios.post(
-        "https://ecomerce-website-ezue.onrender.com/product/add",
+        `${API_URL}/product/add`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

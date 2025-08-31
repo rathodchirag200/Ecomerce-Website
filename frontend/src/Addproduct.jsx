@@ -15,6 +15,7 @@ const AddProduct = () => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // ✅ Handle input changes
   const handleChange = (e) => {
@@ -54,7 +55,7 @@ const AddProduct = () => {
       data.append("bestseller", formData.bestseller.toString());
       data.append("images", image);
 
-      const res = await axios.post("https://ecomerce-website-ezue.onrender.com/product/add", data, {
+      const res = await axios.post(`${API_URL}/product/add`, data, {
         headers: { "Content-Type": "multipart/form-data" },
         timeout: 20000,
       });

@@ -16,7 +16,7 @@ const port = process.env.PORT || 3000;
 
 // ✅ Middleware
 app.use(cors({
-  origin: ["https://trendzy-nine.vercel.app","https://adminpanel-mocha-seven.vercel.app/",],
+  origin: ["http://localhost:5173/","http://localhost:5174/",],
   credentials: true,
 }));
 app.use(express.json());
@@ -34,15 +34,15 @@ app.use("/orders", orderrouter);
 // ✅ Database Connection (SINGLE DB)
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ Connected to MongoDB Atlas"))
-  .catch((err) => console.error("❌ DB Connection Error:", err));
+  .then(() => console.log("Connected to MongoDB Atlas"))
+  .catch((err) => console.error(" DB Connection Error:", err));
 
   app.get("/", (req, res) => {
-  res.send("🚀 Backend is live!");
+  res.send(" Backend is live!");
 });
 
 
 // ✅ Start Server
 app.listen(port, () => {
-  console.log(`🚀 Server is running on http://localhost:${port}`);
+  console.log(` Server is running on http://localhost:${port}`);
 });

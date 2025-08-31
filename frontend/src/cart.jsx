@@ -10,6 +10,7 @@ export const Cart = ({ onCartUpdate }) => {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const SHIPPING_FEE = 10;
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     fetchCart();
@@ -18,7 +19,7 @@ export const Cart = ({ onCartUpdate }) => {
   // ✅ Fetch Cart Items
   const fetchCart = async () => {
     try {
-      const res = await axios.get(`https://ecomerce-website-ezue.onrender.com/api/cart/${userId}`);
+      const res = await axios.get(`${API_URL}/api/cart/${userId}`);
       setCart(res.data.cart);
       if (onCartUpdate) onCartUpdate(res.data.cart.length);
     } catch (error) {
@@ -38,7 +39,7 @@ export const Cart = ({ onCartUpdate }) => {
   const removeFromCart = async (productId, size) => {
     try {
       await axios.delete(
-        `https://ecomerce-website-ezue.onrender.com/api/remove/${userId}/${productId}/${size}`
+        `${API_URL}/api/remove/${userId}/${productId}/${size}`
       );
 
       const updatedCart = cart.filter(
@@ -59,7 +60,7 @@ export const Cart = ({ onCartUpdate }) => {
     if (newQuantity < 1) return;
 
     try {
-      await axios.put(`https://ecomerce-website-ezue.onrender.com/api/cart/update`, {
+      await axios.put(`${API_URL}/api/cart/update`, {
         userId,
         productId,
         size,
@@ -122,7 +123,7 @@ export const Cart = ({ onCartUpdate }) => {
                 <div className="flex items-center gap-5">
                   <div className="w-24 h-24 rounded-lg overflow-hidden shadow-sm">
                     <img
-                      src={`https://ecomerce-website-ezue.onrender.com${item.productId.images[0]}`}
+                      src={`${API_URL}${item.productId.images[0]}`}
                       alt={item.productId.name}
                       className="object-contain w-full h-full"
                     />

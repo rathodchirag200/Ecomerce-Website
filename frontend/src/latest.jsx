@@ -6,6 +6,7 @@ import axios from "axios";
 export const Latest = () => {
   const [latest, setLatest] = useState([]);
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     fetchProducts();
@@ -13,7 +14,7 @@ export const Latest = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("https://ecomerce-website-ezue.onrender.com/product/list");
+      const res = await axios.get(`${API_URL}/product/list`);
       const allProducts = res.data.productdata;
       setLatest(allProducts);
     } catch (err) {
@@ -43,7 +44,7 @@ export const Latest = () => {
         >
           <div className="overflow-hidden">
             <img
-              src={`https://ecomerce-website-ezue.onrender.com${item.images[0]}`}
+              src={`${API_URL}${item.images[0]}`}
               alt={item.name}
               className="w-full h-[200px] object-contain transition-transform duration-300 ease-in-out hover:scale-105"
             />

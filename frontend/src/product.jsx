@@ -11,6 +11,7 @@ export const Product = () => {
   const [loading, setLoading] = useState(true);
   const [mainImage, setMainImage] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
+   const API_URL = import.meta.env.VITE_API_URL;
 
   const { id } = useParams();
   const { addToCart } = useCart(); // ✅ Use CartContext function
@@ -22,7 +23,7 @@ export const Product = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("https://ecomerce-website-ezue.onrender.com/product/list");
+      const res = await axios.get(`${API_URL}/product/list`);
       setLatest(res.data.productdata);
       setLoading(false);
     } catch (err) {
@@ -37,7 +38,7 @@ export const Product = () => {
   // ✅ Update main image when product changes
   useEffect(() => {
     if (product && product.images?.length > 0) {
-      setMainImage(`https://ecomerce-website-ezue.onrender.com${product.images[0]}`);
+      setMainImage(`${API_URL}${product.images[0]}`);
     }
   }, [product]);
 

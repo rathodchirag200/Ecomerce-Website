@@ -8,6 +8,7 @@ export const Adminlogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const API_URL2 = import.meta.env.VITE_API_URL2;
 
   // 🔹 Redirect if already logged in
   useEffect(() => {
@@ -30,7 +31,7 @@ export const Adminlogin = () => {
 
     try {
       // API request for admin login
-      const res = await axios.post("https://ecomerce-website-admin.onrender.com/api/admin/login", {
+      const res = await axios.post(`${API_URL2}/api/admin/login`, {
         email,
         password,
       });
@@ -40,10 +41,7 @@ export const Adminlogin = () => {
         localStorage.setItem("adminToken", res.data.token);
 
         toast.success("Login successful!");
-
-        setTimeout(() => {
-          navigate("/"); // Redirect to dashboard
-        }, 1500);
+        navigate("/"); // Redirect to dashboard
       } else {
         toast.error(res.data.message || "Invalid credentials");
       }
