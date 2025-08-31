@@ -11,12 +11,11 @@ export const Product = () => {
   const [loading, setLoading] = useState(true);
   const [mainImage, setMainImage] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
-   const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL?.replace(/\/+$/, ""); // ✅ Remove trailing slashes
 
   const { id } = useParams();
-  const { addToCart } = useCart(); // ✅ Use CartContext function
+  const { addToCart } = useCart();
 
-  // ✅ Fetch products from backend
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -25,24 +24,26 @@ export const Product = () => {
     try {
       const res = await axios.get(`${API_URL}/product/list`);
       setLatest(res.data.productdata);
-      setLoading(false);
     } catch (err) {
       console.error("Error fetching product data:", err);
+      toast.error("Failed to fetch products");
+    } finally {
       setLoading(false);
     }
   };
 
-  // ✅ Find selected product
   const product = latest.find((p) => p._id === id);
 
   // ✅ Update main image when product changes
   useEffect(() => {
     if (product && product.images?.length > 0) {
-      setMainImage(`${API_URL}${product.images[0]}`);
+      const imgPath = product.images[0].startsWith("/")
+        ? `${API_URL}${product.images[0]}`
+        : `${API_URL}/${product.images[0]}`;
+      setMainImage(imgPath);
     }
   }, [product]);
 
-  // ✅ Handle Add to Cart
   const handleAddToCart = async () => {
     if (!selectedSize) {
       toast.error("Please select a size");
@@ -58,7 +59,6 @@ export const Product = () => {
     }
 
     try {
-      // ✅ Use CartContext addToCart
       await addToCart(product._id, selectedSize);
       toast.success("Successfully added to cart ✅");
     } catch (err) {
@@ -137,7 +137,6 @@ export const Product = () => {
 
       <ToastContainer position="top-right" autoClose={2000} />
 
-      {/* Product Description Section */}
       <Discription />
     </>
   );
