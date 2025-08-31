@@ -224,7 +224,7 @@ export const Productsdata = () => {
                   <tr key={item._id} className="border-t hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <img
-                        src={`https://ecomerce-website-ezue.onrender.com${item.images[0]}`}
+                        src={`${API_URL}${item.images[0]}`}
                         alt={item.name}
                         className="w-24 h-24 object-contain rounded"
                       />
